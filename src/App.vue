@@ -108,6 +108,18 @@ textarea:focus {
 }
 .input-field {
 	padding-top: 5px;
+	position: relative;
+
+	.error {
+		border: 1px solid red;
+	}
+	
+	.error-message {
+		position: absolute;
+		bottom: -0.2rem;
+		font-size: 0.8rem;
+		color: red;
+	}
 }
 
 .with-label {

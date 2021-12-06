@@ -19,20 +19,21 @@
             <div class = "split">
                 <div class="input-field with-label">
                     <label>Total SI</label>
-                    <input type="number" v-model="Total_SI" required />
+                    <input type="number" :class="{error: checkTotalValues !== ''}" v-model="Total_SI" required />
                 </div>
 				<div class="input-field with-label">
                     <label>Total Premium</label>
-                    <input type="number" v-model="Total_Premium" required />
-					<span>{{checklength}}</span>
+                    <input type="number" :class="{error: checkTotalValues !== ''}" v-model="Total_Premium" required />
+					<span class="error-message">{{checkTotalValues}}</span>
                 </div>
                 <div class="input-field with-label">
                     <label>FAC SI</label>
-                    <input type="number" v-model="FAC_SI" required />
+                    <input type="number" :class="{error: checkFAC_Values !== ''}" v-model="FAC_SI" required />
                 </div>
 				<div class="input-field with-label">
                     <label>FAC Premium</label>
-                    <input type="number" v-model="FAC_Premium" required />
+                    <input type="number" :class="{error: checkFAC_Values !== ''}" v-model="FAC_Premium" required />
+					<span class="error-message">{{checkFAC_Values}}</span>
                 </div>
             </div>
             <div class = "split">
@@ -87,59 +88,67 @@ export default {
 			Token_ID: null,
 		}
 	},
-	computed:{
-		checklength(){
-			if(this.Total_SI < this.Total_Premium){
-				return("Total SI should be greater tha Total Premium")
-			}
-			return 0
-		}
-	},
 	methods: {
 		async facOffer() {
 			try {
-				this.isLoading = true
-				let post = {
-					mode: 'cors',
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-					body: JSON.stringify({
-						'Insurer_Address' : this.$store.state.account,
-						'Reinsurer1_Address' : this.Reinsurer1_Address,
-						'Reinsurer2_Address' : this.Reinsurer2_Address,
-						'PolicyNo' : this.PolicyNo, 
-						'ProductID' : this.ProductID,
-						'Product_Name' : this.Product_Name,
-						'Risk_Type' : this.Risk_Type,
-						'Total_SI' : this.Total_SI,
-						'Total_Premium' : this.Total_Premium,
-						'FAC_SI' : this.FAC_SI,
-						'FAC_Premium' : this.FAC_Premium,
-						'ReInsurer1_Amount' : this.ReInsurer1_Amount,
-						'ReInsurer2_Amount' : this.ReInsurer2_Amount,
-						'Token_ID' : this.Token_ID, 
-					})
+				if(this.checkTotalValues && this.checkFAC_Values) {
+					this.isLoading = true
+					let post = {
+						mode: 'cors',
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+						body: JSON.stringify({
+							'Insurer_Address' : this.$store.state.account,
+							'Reinsurer1_Address' : this.Reinsurer1_Address,
+							'Reinsurer2_Address' : this.Reinsurer2_Address,
+							'PolicyNo' : this.PolicyNo, 
+							'ProductID' : this.ProductID,
+							'Product_Name' : this.Product_Name,
+							'Risk_Type' : this.Risk_Type,
+							'Total_SI' : this.Total_SI,
+							'Total_Premium' : this.Total_Premium,
+							'FAC_SI' : this.FAC_SI,
+							'FAC_Premium' : this.FAC_Premium,
+							'ReInsurer1_Amount' : this.ReInsurer1_Amount,
+							'ReInsurer2_Amount' : this.ReInsurer2_Amount,
+							'Token_ID' : this.Token_ID, 
+						})
+					}
+					await fetch(this.$url+'/facoffercreation', post)
+						.then(response => response.json())
+						.then(data => {
+							this.$emit('popup', 'FAC Offer created successfully!', 'Your FAC Offer ID is '+data.appID)
+							this.PolicyNo = ''
+							this.ProductID = ''
+							this.Product_Name = ''
+							this.Risk_Type = ''
+							this.Total_SI = ''
+							this.Total_Premium = ''
+							this.FAC_SI = ''
+							this.FAC_Premium = ''
+							this.ReInsurer1_Amount = ''
+							this.ReInsurer2_Amount = ''
+						})
 				}
-				await fetch(this.$url+'/facoffercreation', post)
-					.then(response => response.json())
-					.then(data => {
-						this.$emit('popup', 'FAC Offer created successfully!', 'Your FAC Offer ID is '+data.appID)
-						this.PolicyNo = ''
-						this.ProductID = ''
-						this.Product_Name = ''
-						this.Risk_Type = ''
-						this.Total_SI = ''
-						this.Total_Premium = ''
-						this.FAC_SI = ''
-						this.FAC_Premium = ''
-						this.ReInsurer1_Amount = ''
-						this.ReInsurer2_Amount = ''
-					})
 			} catch(err) {
 				this.$emit('popup', '', 'An error occurred while creating your order.')
 				console.log(err)
 			} 
 			this.isLoading = false
+		}
+	},
+	computed:{
+		checkTotalValues(){
+			if(this.Total_SI < this.Total_Premium){
+				return 'Total SI should be greater than Total Premium'
+			}
+			return ''
+		},
+		checkFAC_Values(){
+			if(this.FAC_SI < this.FAC_Premium){
+				return 'FAC SI should be greater than FAC Premium'
+			}
+			return ''
 		}
 	},
 }
