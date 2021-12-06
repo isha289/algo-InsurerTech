@@ -72,9 +72,6 @@ export default {
 	data() {
 		return {
 			isLoading: false,
-			Insurer_Address: '',
-			Reinsurer1_Address: '',
-			Reinsurer2_Address: '',
 			PolicyNo: null,
 			ProductID: null,
 			Product_Name: '',
@@ -82,16 +79,16 @@ export default {
 			Total_Premium: null,
 			FAC_SI: null,
 			FAC_Premium: null,
+			Reinsurer1_Address: '',
 			ReInsurer1_Amount: null,
+			Reinsurer2_Address: '',
 			ReInsurer2_Amount: null,
-			
 		}
 	},
 	methods: {
 		async facOffer() {
 			try {
-				console.log(this.checkTotalValues != '' && this.checkFAC_Values != '')
-				if(this.checkTotalValues !== '' && this.checkFAC_Values !== '') {
+				if(this.checkTotalValues === '' && this.checkFAC_Values === '') {
 					this.isLoading = true
 					let post = {
 						mode: 'cors',
