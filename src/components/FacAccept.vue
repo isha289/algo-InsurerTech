@@ -14,8 +14,6 @@
 
             <td class="heading center">Product Name</td>
 
-            <td class="heading center">Risk Type</td>
-
             <td class="heading center">Total SI</td>
 
             <td class="heading center">Total Premium</td>
@@ -45,8 +43,6 @@
             <td class="data center">{{ offer.policyNo }}</td>
 
             <td class="data center">{{ offer.productName }}</td>
-
-            <td class="data center">{{ offer.riskType }}</td>
 
             <td class="data center">{{ offer.total_SI }}</td>
 
@@ -146,9 +142,7 @@ export default {
 
           "AppID": offer.fac_offer_code,
 
-          "Accept": 1,
-
-          "Token_ID": 48689901,
+          "Accept": 1
         };
 
         let post = {

@@ -59,7 +59,7 @@ export default {
 					body: JSON.stringify({
 						'Token_Revoke_Address' : this.$store.state.account,
 						'Amount' : this.Amount,
-						'Token_ID': 48689901,
+						
 					})
 				}
 				await fetch(this.$url+'/tokenredeem', post)

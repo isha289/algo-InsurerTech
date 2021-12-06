@@ -39,7 +39,7 @@
             <div class = "split">
                 <div class="input-field with-label">
                     <label>ReInsurer1 Email</label>
-                    <input type="text" v-model="Reinsurer1_Address" required />
+                    <input type="email" v-model="Reinsurer1_Address" required />
                 </div>
                 <div class="input-field with-label">
                     <label>ReInsurer1 Percent(%)</label>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="input-field with-label">
                     <label>ReInsurer2 Email</label>
-                    <input type="text" v-model="Reinsurer2_Address" required />
+                    <input type="email" v-model="Reinsurer2_Address" required />
                 </div>
                 <div class="input-field with-label">
                     <label>ReInsurer2 Percent(%)</label>
@@ -78,20 +78,20 @@ export default {
 			PolicyNo: null,
 			ProductID: null,
 			Product_Name: '',
-			Risk_Type: '',
 			Total_SI: null,
 			Total_Premium: null,
 			FAC_SI: null,
 			FAC_Premium: null,
 			ReInsurer1_Amount: null,
 			ReInsurer2_Amount: null,
-			Token_ID: null,
+			
 		}
 	},
 	methods: {
 		async facOffer() {
 			try {
-				if(this.checkTotalValues && this.checkFAC_Values) {
+				console.log(this.checkTotalValues != '' && this.checkFAC_Values != '')
+				if(this.checkTotalValues !== '' && this.checkFAC_Values !== '') {
 					this.isLoading = true
 					let post = {
 						mode: 'cors',
@@ -104,14 +104,13 @@ export default {
 							'PolicyNo' : this.PolicyNo, 
 							'ProductID' : this.ProductID,
 							'Product_Name' : this.Product_Name,
-							'Risk_Type' : this.Risk_Type,
 							'Total_SI' : this.Total_SI,
 							'Total_Premium' : this.Total_Premium,
 							'FAC_SI' : this.FAC_SI,
 							'FAC_Premium' : this.FAC_Premium,
 							'ReInsurer1_Amount' : this.ReInsurer1_Amount,
 							'ReInsurer2_Amount' : this.ReInsurer2_Amount,
-							'Token_ID' : this.Token_ID, 
+							
 						})
 					}
 					await fetch(this.$url+'/facoffercreation', post)
@@ -121,7 +120,6 @@ export default {
 							this.PolicyNo = ''
 							this.ProductID = ''
 							this.Product_Name = ''
-							this.Risk_Type = ''
 							this.Total_SI = ''
 							this.Total_Premium = ''
 							this.FAC_SI = ''
