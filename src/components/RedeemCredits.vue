@@ -75,14 +75,7 @@ export default {
 			} 
 			this.isLoading = false
 		},
-		focusInput() {
-			setTimeout(() => {
-				this.$refs.name.focus()
-			}, 100)
-		}
 	},
-	mounted() {
-	}
 }
 </script>
 

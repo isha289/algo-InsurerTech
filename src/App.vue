@@ -73,6 +73,9 @@ section {
 }
 form {
 	margin: 2rem 0;
+	box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.4);
+	padding: 2rem;
+	border-radius: 1rem;
 }
 input[type=text],
 input[type=email],
@@ -135,6 +138,7 @@ textarea:focus {
 	margin: 0;
 	border: 5px solid navy;
 	border-top-color: transparent;
+	box-shadow: none;
 	padding: 1rem;
 	position: relative;
 	top: -1rem;
@@ -217,7 +221,7 @@ textarea:focus {
 	display: grid;
 	grid-auto-flow: column;
 	grid-gap: 1rem;
-	justify-content: center;
+	margin-bottom: 2rem;
 
 	input {
 		width: 100%;

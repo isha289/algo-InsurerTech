@@ -131,27 +131,14 @@ export default {
 				console.log(err)
 			} 
 			this.isLoading = false
-		},
-		focusInput() {
-			setTimeout(() => {
-				this.$refs.name.focus()
-			}, 100)
 		}
 	},
-	mounted() {
-		this.focusInput()
-		let today = new Date()
-		var dd = String(today.getDate()).padStart(2, '0');
-		var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-		var yyyy = today.getFullYear();
-		this.startDate = yyyy + '-' + mm + '-' + dd;
-	}
 }
 </script>
 
 <style scoped>
 .split {
 	align-items: center;
-	grid-template-columns: 18.8% 1% 18.8%;
+	/* grid-template-columns: 18.8% 1% 18.8%; */
 }
 </style>
