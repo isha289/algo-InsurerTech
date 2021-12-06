@@ -18,20 +18,21 @@
             </div>  
             <div class = "split">
                 <div class="input-field with-label">
-                    <label>Total Premium</label>
-                    <input type="number" v-model="Total_Premium" required />
-                </div>
-                <div class="input-field with-label">
                     <label>Total SI</label>
                     <input type="number" v-model="Total_SI" required />
                 </div>
-                <div class="input-field with-label">
-                    <label>FAC Premium</label>
-                    <input type="number" v-model="FAC_Premium" required />
+				<div class="input-field with-label">
+                    <label>Total Premium</label>
+                    <input type="number" v-model="Total_Premium" required />
+					<span>{{checklength}}</span>
                 </div>
                 <div class="input-field with-label">
                     <label>FAC SI</label>
                     <input type="number" v-model="FAC_SI" required />
+                </div>
+				<div class="input-field with-label">
+                    <label>FAC Premium</label>
+                    <input type="number" v-model="FAC_Premium" required />
                 </div>
             </div>
             <div class = "split">
@@ -84,6 +85,14 @@ export default {
 			ReInsurer1_Amount: null,
 			ReInsurer2_Amount: null,
 			Token_ID: null,
+		}
+	},
+	computed:{
+		checklength(){
+			if(this.Total_SI < this.Total_Premium){
+				return("Total SI should be greater tha Total Premium")
+			}
+			return 0
 		}
 	},
 	methods: {

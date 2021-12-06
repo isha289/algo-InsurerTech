@@ -1,6 +1,6 @@
 <template>
 	<section id="credit-redeem">
-		<h2>Redeem Credits</h2>
+		<h2>Redeem Tokens</h2>
 		<form @submit.prevent="tokenRedeem">
 			<!-- <div class="input-field with-label">
                 <label>InsurerTech Address</label>

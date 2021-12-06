@@ -238,9 +238,9 @@ td {
 .heading {
   text-align: left;
 
-  font-weight: 600;
+  font-weight: 500;
 
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .center {

@@ -23,8 +23,8 @@
 				<input type="text" v-model="name" required />
 			</div> -->
             <div class="input-field with-label">
-                <label>Number of Credits</label>
-				<input type="number" v-model="No_Of_Credits" required />
+                <label>Number of Tokens</label>
+				<input type="number" v-model="No_Of_Tokens" required />
 			</div>
 			<button type="submit" class="btn btn-primary" value="Submit">
 				<div v-if="!isLoading">Submit</div>
@@ -45,7 +45,7 @@ export default {
 	data() {
 		return {
 			isLoading: false,
-			No_Of_Credits: null,
+			No_Of_Tokens: null,
 		}
 	},
 	methods: {
@@ -58,19 +58,18 @@ export default {
 					headers: { 'Content-Type': 'application/json; charset=UTF-8' },
 					body: JSON.stringify({
 						'Purchaser_Address' : this.$store.state.account,
-						'No_Of_Credits' : this.No_Of_Credits,
-						'Token_ID': 48689901,
+						'No_Of_Tokens' : this.No_Of_Tokens,
 					})
 				}
 				await fetch(this.$url+'/tokentransfer', post)
 					.then(response => response.json())
 					.then(
-						this.$emit('popup', 'Credits Deposited Successfully!')
+						this.$emit('popup', 'Tokens Deposited Successfully!')
 						// this.url = ''
 						// this.funds = null
 					)
 			} catch(err) {
-				this.$emit('popup', '', 'An error occurred while transferring credits.')
+				this.$emit('popup', '', 'An error occurred while transferring tokens.')
 				console.log(err)
 			} 
 			this.isLoading = false
