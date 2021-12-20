@@ -1,92 +1,53 @@
 <template>
   <section id="approve-reject-funds">
-    <h2>FAC Offer List</h2>
-
+    <div class="section-head">
+      <h2>FAC Offer List</h2>
+      <router-link to="/facoffercreation">
+        <button class="btn btn-primary">
+          Add offer
+        </button>
+      </router-link>
+    </div>
     <div class="InsurerOfferList">
       <table class="table table-striped" style="overflow: scroll">
         <thead>
           <tr>
-			
             <td class="heading center">FAC Offer Code</td>
-
             <td class="heading center">Policy No</td>
-
             <td class="heading center">Product Name</td>
-
             <td class="heading center">Total SI</td>
-
             <td class="heading center">Total Premium</td>
-
             <td class="heading center">FAC SI</td>
-
             <td class="heading center">FAC Premium</td>
-
-            <td class="heading center">Amount</td>
-
             <td class="heading center">Escrow Address</td>
-
             <td class="heading center">Escrow Balance</td>
-
             <td class="heading center">Reinsurer 1</td>
-
             <td class="heading center">Reinsurer 2</td>
-
-        </tr>
+          </tr>
         </thead>
-
         <tbody>
           <tr v-if="offers == ''">
-            <td class="empty" colspan="12">
-              You do not have any open FAC Orders.
-            </td>
+            <td class="empty" colspan="12">You do not have any open FAC Orders.</td>
           </tr>
-          <!-- <tr> -->
           <tr v-else v-for="(offer, index) in offers" :key="index">
-			
             <td class="data center">{{ offer.fac_offer_code }}</td>
-
             <td class="data center">{{ offer.policyNo }}</td>
-
             <td class="data center">{{ offer.productName }}</td>
-
             <td class="data center">{{ offer.total_SI }}</td>
-
             <td class="data center">{{ offer.total_premium }}</td>
-
             <td class="data center">{{ offer.fac_SI }}</td>
-
             <td class="data center">{{ offer.fac_premium }}</td>
-
-            <td class="data center">{{offer.reinsurer_amount}}</td>
-
-            <td class="data center">{{ offer.appaddr}}</td>
-
-            <td class="data center">{{ offer.reinsurer1_accept}}</td>
-
-            <td class="data center">{{ offer.reinsurer2_accept}}</td>
-
-           
+            <td class="data center">{{ offer.appaddr }}</td>
+            <td class="data center">{{ offer.escrowBalance }}</td>
+            <td class="data center" :style="{
+              color: offer.reinsurer1_accept === 1 ? 'green' : 'red'
+            }">{{ offer.reinsurer1_accept === 1 ? 'Accepted' : 'Pending' }}</td>
+            <td class="data center" :style="{
+              color: offer.reinsurer2_accept === 1 ? 'green' : 'red'
+            }">{{ offer.reinsurer2_accept === 1 ? 'Accepted' : 'Pending' }}</td>
           </tr>
         </tbody>
       </table>
-
-      <!-- <button
-        v-show="offers != ''"
-        @click="approveOrRejectFunds"
-        class="btn btn-primary"
-      >
-        <div v-if="!isLoading">Confirm</div>
-
-        <div v-else class="lds-ring">
-          <div></div>
-
-          <div></div>
-
-          <div></div>
-
-          <div></div>
-        </div>
-      </button> -->
     </div>
   </section>
 </template>
@@ -94,55 +55,59 @@
 <script>
 export default {
   name: "ApproveRejectFunds",
-
   data() {
     return {
-      isLoading: false,
-
       offers: [],
-
-      selectedOffer: {},
+      selectedOffer: {}
     };
   },
-
   methods: {
+    async getEscrowBalance(escrowAddr, index) {
+      try {
+        let post = {
+          mode: "cors",
+          method: "POST",
+          headers: { "Content-Type": "application/json; charset=UTF-8" },
+          body: JSON.stringify({
+            account_address: escrowAddr
+          })
+        };
+        await fetch(this.$url + "/tokenbalance", post)
+          .then(response => response.json())
+          .then(data => {
+            this.offers[index].escrowBalance = data['Token Balance']
+          });
+      } catch (err) {
+        this.$emit("popup", "", "There was an error.");
+      }
+    },
     async loadData() {
       try {
         this.isLoading = true;
         let post = {
-             mode: "cors",
-
+          mode: "cors",
           method: "POST",
-
           headers: { "Content-Type": "application/json; charset=UTF-8" },
-
           body: JSON.stringify({
-            Insurer_Address: this.$store.state.account,
-          }),
-        }
+            Insurer_Address: this.$store.state.account
+          })
+        };
         await fetch(this.$url + "/insurerofferlist", post)
-        .then((response) => response.json())
-
-          .then((data) => {
+          .then(response => response.json())
+          .then(data => {
             this.offers = data.offer;
-            console.log(data)
-           
+            this.offers.map((offer, index) => {
+              this.getEscrowBalance(offer.appaddr, index)
+            })
           });
       } catch (err) {
         this.$emit("popup", "", "There was an error.");
-        
       }
-
-     
-    },
-
-
-
- },
-
+    }
+  },
   mounted() {
     this.loadData();
-  },
+  }
 };
 </script>
 

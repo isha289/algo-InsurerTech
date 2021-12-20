@@ -58,18 +58,18 @@ body {
 	margin: 0;
 	padding: 0;
 }
-
-h2 {
-	font-weight: 600;
-	margin: 0;
-}
 table {
 	width: 100%;
+}
+h2 {
+	width: fit-content;
+	font-weight: 600;
+	margin: 0;
 }
 section {
 	padding: 1.3rem 3rem;
 	margin-left: 16rem;
-	margin-top: 3.96rem;
+	margin-top: 5.6rem;
 }
 form {
 	margin: 2rem 0;
@@ -242,6 +242,11 @@ textarea:focus {
 	.with-label {
 		grid-template-columns: 100%;
 	}
+}
+
+.section-head {
+	display: flex;
+	justify-content: space-between;
 }
 
 /* Loading spinner */
