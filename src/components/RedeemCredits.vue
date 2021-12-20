@@ -23,7 +23,7 @@
 				<input type="text" v-model="name" required />
 			</div> -->
             <div class="input-field with-label">
-                <label>Amount</label>
+                <label>No. Of Tokens</label>
 				<input type="number" v-model="Amount" required />
 			</div>
 			<button type="submit" class="btn btn-primary" value="Submit">
@@ -65,9 +65,9 @@ export default {
 				await fetch(this.$url+'/tokenredeem', post)
 					.then(response => response.json())
 					.then(
-						this.$emit('popup', 'Credits Redeemed Successfully!')
+						this.$emit('popup', 'Credits Redeemed Successfully!','',{timeout:8000}),
 						// this.url = ''
-						// this.funds = null
+						this.Amount = ''
 					)
 			} catch(err) {
 				this.$emit('popup', '', 'An error occurred while redeeming.')

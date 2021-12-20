@@ -64,9 +64,9 @@ export default {
 				await fetch(this.$url+'/tokentransfer', post)
 					.then(response => response.json())
 					.then(
-						this.$emit('popup', 'Tokens Deposited Successfully!')
+						this.$emit('popup', 'Tokens Deposited Successfully!'),
 						// this.url = ''
-						// this.funds = null
+						this.No_Of_Tokens = null
 					)
 			} catch(err) {
 				this.$emit('popup', '', 'An error occurred while transferring tokens.')

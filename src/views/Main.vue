@@ -11,7 +11,7 @@
 					<i class="fas fa-credit-card"></i>
 					Redeem Tokens
 				</router-link>
-				<router-link to="/facoffercreation" class="tab">
+				<router-link to="/insureroffer" class="tab">
 					<i class="fas fa-plus-circle"></i>
 					FAC Offer
 				</router-link>
@@ -114,7 +114,7 @@ export default {
 			})
 			this.$router.push('/login')
 		},
-		gotPopup(message, description) {
+		gotPopup(message, description,data = {timeout : 6000}) {
 			this.address = ''
 			this.message = message
 			this.description = description
@@ -125,7 +125,7 @@ export default {
 			setTimeout(()=>{
 				this.getAccountBalance()
 				this.getBankBalance()
-			},6000)
+			},data.timeout)
 		},
 		async getAccountBalance() {
 			try {

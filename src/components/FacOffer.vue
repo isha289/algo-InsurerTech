@@ -38,20 +38,20 @@
             </div>
             <div class = "split">
                 <div class="input-field with-label">
-                    <label>ReInsurer1 Email</label>
-                    <input type="email" v-model="Reinsurer1_Address" required />
+                    <label>ReInsurer1</label>
+                    <input type="email" v-model="Reinsurer1_Email" required />
                 </div>
                 <div class="input-field with-label">
                     <label>ReInsurer1 Percent(%)</label>
-                    <input type="number" v-model="ReInsurer1_Amount" required />
+                    <input type="number" step="0.01" v-model="ReInsurer1_Percent" required />
                 </div>
                 <div class="input-field with-label">
-                    <label>ReInsurer2 Email</label>
-                    <input type="email" v-model="Reinsurer2_Address" required />
+                    <label>ReInsurer2</label>
+                    <input type="email" v-model="Reinsurer2_Email" />
                 </div>
                 <div class="input-field with-label">
                     <label>ReInsurer2 Percent(%)</label>
-                    <input type="number" v-model="ReInsurer2_Amount" required />
+                    <input type="number" step="0.01" v-model="ReInsurer2_Percent"  />
                 </div>
             </div>
 			<button type="submit" class="btn btn-primary" value="Submit">
@@ -79,10 +79,10 @@ export default {
 			Total_Premium: null,
 			FAC_SI: null,
 			FAC_Premium: null,
-			Reinsurer1_Address: '',
-			ReInsurer1_Amount: null,
-			Reinsurer2_Address: '',
-			ReInsurer2_Amount: null,
+			Reinsurer1_Email: '',
+			ReInsurer1_Percent: null,
+			Reinsurer2_Email: '',
+			ReInsurer2_Percent: null,
 		}
 	},
 	methods: {
@@ -96,8 +96,8 @@ export default {
 						headers: { 'Content-Type': 'application/json; charset=UTF-8' },
 						body: JSON.stringify({
 							'Insurer_Address' : this.$store.state.account,
-							'Reinsurer1_Address' : this.Reinsurer1_Address,
-							'Reinsurer2_Address' : this.Reinsurer2_Address,
+							'Reinsurer1_Email' : this.Reinsurer1_Email,
+							'Reinsurer2_Email' : this.Reinsurer2_Email,
 							'PolicyNo' : this.PolicyNo, 
 							'ProductID' : this.ProductID,
 							'Product_Name' : this.Product_Name,
@@ -105,8 +105,8 @@ export default {
 							'Total_Premium' : this.Total_Premium,
 							'FAC_SI' : this.FAC_SI,
 							'FAC_Premium' : this.FAC_Premium,
-							'ReInsurer1_Amount' : this.ReInsurer1_Amount,
-							'ReInsurer2_Amount' : this.ReInsurer2_Amount,
+							'ReInsurer1_Percent' : this.ReInsurer1_Percent,
+							'ReInsurer2_Percent' : this.ReInsurer2_Percent,
 							
 						})
 					}
@@ -121,8 +121,8 @@ export default {
 							this.Total_Premium = ''
 							this.FAC_SI = ''
 							this.FAC_Premium = ''
-							this.ReInsurer1_Amount = ''
-							this.ReInsurer2_Amount = ''
+							this.ReInsurer1_Percent = ''
+							this.ReInsurer2_Percent = ''
 						})
 				}
 			} catch(err) {

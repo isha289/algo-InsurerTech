@@ -4,7 +4,8 @@ import Main from '../views/Main.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import FundProject from '../components/FundProject.vue'
-import FacOffer from '../components/FacOffer.vue'
+// import FacOffer from '../components/FacOffer.vue'
+import FacOfferList from '../components/FacOfferList.vue'
 import TokenCreation from '../components/TokenCreation.vue'
 import RedeemCredits from '../components/RedeemCredits.vue'
 import FacAccept from '../components/FacAccept.vue'
@@ -25,10 +26,15 @@ const routes = [{
                 }
             },
             {
-                path: '/facoffercreation',
-                name: 'FacOffer',
-                component: FacOffer
+                    path: '/insureroffer',
+                    name: 'FacOfferList',
+                    component: FacOfferList
             },
+            // {
+            //     path: '/facoffercreation',
+            //     name: 'FacOffer',
+            //     component: FacOffer
+            // },
             {
                 path: '/fac-accept',
                 name: 'FacAccept',
