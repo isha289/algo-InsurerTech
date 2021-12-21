@@ -67,7 +67,7 @@ export default {
 							this.$emit('externalPopup', '', 'Your email or password is incorrect.')
 						} else {
 							this.$store.dispatch('updateAccount', data)
-							this.$router.push('/facoffercreation')
+							this.$router.push('/insureroffer')
 						}
 					})
 			} catch(err) {

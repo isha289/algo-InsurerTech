@@ -226,7 +226,7 @@ textarea:focus {
 }
 
 .btn {
-	width: 6rem;
+	width: 7rem;
 }
 
 .split {

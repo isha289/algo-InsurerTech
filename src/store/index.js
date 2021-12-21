@@ -2,8 +2,8 @@ import { createStore } from 'vuex'
 
 export default createStore({
     state: {
-        lastName: localStorage.getItem('firstName') || '',
-        firstName: localStorage.getItem('lastName') || '',
+        lastName: localStorage.getItem('lastName') || '',
+        firstName: localStorage.getItem('firstName') || '',
         account: localStorage.getItem('account') || '',
     },
     mutations: {

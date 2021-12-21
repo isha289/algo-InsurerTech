@@ -8,11 +8,13 @@ import FacOffer from '../components/FacOffer.vue'
 import FacOfferList from '../components/FacOfferList.vue'
 import TokenCreation from '../components/TokenCreation.vue'
 import RedeemCredits from '../components/RedeemCredits.vue'
+import FacAcceptList from '../components/FacAcceptList.vue'
 import FacAccept from '../components/FacAccept.vue'
 
 const routes = [{
         path: '/',
         name: 'Main',
+        redirect: '/login',
         component: Main,
         meta: { requiresAuth: true, loading: true },
         children: [{
@@ -33,6 +35,11 @@ const routes = [{
                 path: '/facoffercreation',
                 name: 'FacOffer',
                 component: FacOffer
+            },
+            {
+                path: '/facaceptlist',
+                name: 'FacAcceptList',
+                component: FacAcceptList
             },
             {
                 path: '/fac-accept',

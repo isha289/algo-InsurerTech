@@ -19,7 +19,7 @@
 					<i class="fas fa-project-diagram"></i>
 					FAC Accept 
 				</router-link> -->
-				<router-link to="/fac-accept" class="tab">		<!---review funds-->
+				<router-link to="/facaceptlist" class="tab">		<!---review funds-->
 					<i class="fas fa-check-double"></i>
 					FAC Accept
 				</router-link>
