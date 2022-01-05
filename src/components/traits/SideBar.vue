@@ -1,10 +1,25 @@
 <template>
 	<div class="nav-links">
-		<router-link v-for="(item, index) in items" :to="item.to" :key="index" class="tab">
-			<i :class="item.icon"></i>
-			{{ item.text }}
-		</router-link>
-		<button class="btn tab" @click="signOut"><i class="fas fa-sign-out-alt"></i>Sign out</button>
+		<div v-for="(item, index) in items" :key="index" class="nav-links">
+			<div class="children-container" v-if="item.child">
+				<div class="tab" @click="item.toggle = !item.toggle">
+					<i :class="item.toggle ? 'fas fa-folder-open' : 'fas fa-folder'"></i>
+					{{ item.text }}
+					<i class="fas fa-chevron-up" :class="item.toggle ? 'up' : 'down'"></i>
+				</div>
+				<ul class="children" :class="item.toggle ? 'toggled' : ''" v-if="item.child">
+					<router-link v-for="(child, index) in item.child" :to="child.to" :key="index" class="tab">
+						<i :class="child.icon"></i>
+						{{ child.text }}
+					</router-link>
+				</ul>
+			</div>
+			<router-link v-else :to="item.to" class="tab">
+				<i :class="item.icon"></i>
+				{{ item.text }}	
+			</router-link>
+		</div>
+		<button class="btn tab"><i class="fas fa-sign-out-alt"></i>Sign out</button>
 	</div>
 </template>
 
@@ -13,7 +28,7 @@ export default {
 	name: 'SideBar',
 	data() {
 		return {
-			items: []
+			items: [],
 		}
 	},
 	methods: {
@@ -52,24 +67,30 @@ export default {
 						text: 'Redeem Tokens',
 					},
 					{
-						to: '/facoffercreation',
-						icon: 'fas fa-plus-circle',
-						text: 'Create FAC Offer',
-					},
-					{
-						to: '/insureroffer',
-						icon: 'fab fa-buffer',
-						text: 'FAC Offers',
-					},
-					{
-						to: '/fac-accept',
-						icon: 'fas fa-check',
-						text: 'Accept FAC Offer',
-					},
-					{
-						to: '/facaceptlist',
-						icon: 'fas fa-check-double',
-						text: 'Accepted FAC Offers',
+						text: 'FAC Offer',
+						toggle: false,
+						child: [
+							{
+								to: '/facoffercreation',
+								icon: 'fas fa-plus-circle',
+								text: 'Create',
+							},
+							{
+								to: '/insureroffer',
+								icon: 'fab fa-buffer',
+								text: 'List',
+							},
+							{
+								to: '/fac-accept',
+								icon: 'fas fa-check',
+								text: 'Accept',
+							},
+							{
+								to: '/facaceptlist',
+								icon: 'fas fa-check-double',
+								text: 'Accepted',
+							},
+						]
 					},
 				]
 			}
@@ -89,9 +110,40 @@ export default {
 	display: flex;
 	flex-direction: column;
 	align-items: baseline;
+	padding: 0;
+	list-style: none;
+
+	.fa-chevron-up {
+		float: right;
+		position: relative;
+		top: 4px;
+		transition: all 200ms ease-in-out;
+	}
+	.down {
+		transform: rotate(180deg)
+	}
+
+	div {
+		width: 100%;
+	}
 
 	.fas, .fab {
 		margin-right: 5px;
+	}
+
+	.children {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		padding-left: 2rem;
+		margin: 0;
+		opacity: 0;
+		height: 0;
+		transition: all 200ms ease-in-out;
+	}
+	.toggled {
+		opacity: 1;
+		height: 11rem;
 	}
 
 	.tab {
@@ -100,6 +152,9 @@ export default {
 		width: 100%;
 		text-align: left;
 		transition: all 200ms ease-in-out;
+		list-style: none;
+		border-radius: 2rem 0 0 2rem;
+		cursor: pointer;
 
 		&:hover {
 			text-decoration: none;
