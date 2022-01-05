@@ -1,7 +1,9 @@
 <template>
-<section id="fac-offer"> 
-<h3>FAC Offer</h3>
-<form @submit.prevent="facOffer">
+	<section id="fac-offer"> 
+		<div class="section-head">
+			<h2>FAC Offer</h2>
+		</div>
+		<form @submit.prevent="facOffer">
             <div class = "split">               
                 <div class="input-field with-label">
                     <label>Policy Number</label>
@@ -66,6 +68,7 @@
 		</form>
 	</section>	
 </template>
+
 <script>
 export default {
 	name: 'facOffer',

@@ -64,8 +64,7 @@ export default {
 				await fetch(this.$url+'/tokentransfer', post)
 					.then(response => response.json())
 					.then(
-						this.$emit('popup', 'Tokens Deposited Successfully!', {timeout: 10000}),
-						// this.url = ''
+						this.$emit('popup', 'Tokens Deposited Successfully!', '', {timeout: 10000}),
 						this.No_Of_Tokens = null
 					)
 			} catch(err) {

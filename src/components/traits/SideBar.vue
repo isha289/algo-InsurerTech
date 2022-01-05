@@ -52,14 +52,24 @@ export default {
 						text: 'Redeem Tokens',
 					},
 					{
-						to: '/insureroffer',
+						to: '/facoffercreation',
 						icon: 'fas fa-plus-circle',
-						text: 'FAC Offer',
+						text: 'Create FAC Offer',
+					},
+					{
+						to: '/insureroffer',
+						icon: 'fab fa-buffer',
+						text: 'FAC Offers',
+					},
+					{
+						to: '/fac-accept',
+						icon: 'fas fa-check',
+						text: 'Accept FAC Offer',
 					},
 					{
 						to: '/facaceptlist',
 						icon: 'fas fa-check-double',
-						text: 'FAC Accept',
+						text: 'Accepted FAC Offers',
 					},
 				]
 			}
@@ -80,7 +90,7 @@ export default {
 	flex-direction: column;
 	align-items: baseline;
 
-	.fas {
+	.fas, .fab {
 		margin-right: 5px;
 	}
 

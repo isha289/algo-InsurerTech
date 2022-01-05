@@ -6,7 +6,7 @@
       <table class="table table-striped" style="overflow: scroll">
         <thead>
           <tr>
-            <td class="heading center">Insurer Address</td>
+            <td class="heading center">Insurer Name</td>
 
             <td class="heading center">FAC Offer Code</td>
 
@@ -31,12 +31,12 @@
         <tbody>
           <tr v-if="offers == ''">
             <td class="empty" colspan="12">
-              You do not have any open FAC Orders.
+              You do not have any open FAC Offers.
             </td>
           </tr>
           <!-- <tr> -->
           <tr v-else v-for="(offer, index) in offers" :key="index">
-            <td class="data center">{{ offer.insurer_address }}</td>
+            <td class="data center">{{ offer.insurer_name }}</td>
 
             <td class="data center">{{ offer.fac_offer_code }}</td>
 

@@ -22,10 +22,6 @@ const routes = [{
                 path: '/fund-project',
                 name: 'FundProject',
                 component: FundProject,
-                // add component methodName here to call from the parent
-                meta: {
-                    confirm: { methodName: 'confirmOrders' },
-                }
             },
             {
                 path: '/insureroffer',

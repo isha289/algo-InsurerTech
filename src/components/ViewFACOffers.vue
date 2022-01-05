@@ -22,8 +22,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="(offer, index) in filteredOffers" :key="index" @click="this.selectOffer(offer)" style="cursor: pointer">
-					<td class="data">{{ offer.fac_offer_code }}</td>
+				<tr v-for="(offer, index) in filteredOffers" :key="index" @click="this.selectOffer(offer)" class="offer-row">
+					<td class="data link">{{ offer.fac_offer_code }}</td>
 					<td class="data">{{ offer.productName }}</td>
 					<td class="data">{{ offer.insurer_name }}</td>
 					<td class="data center">{{ offer.fac_premium }}</td>
@@ -92,6 +92,23 @@ export default {
 	input {
 		margin: 0;
 		width: 50%;
+	}
+}
+
+.offer-row {
+	cursor: pointer;
+	transition: all 200ms ease-in-out;
+
+	.link {
+		color: blue;
+	}
+
+	&:hover {
+		background-color: rgba($color: #777, $alpha: 0.5);
+
+		.link {
+			text-decoration: underline;
+		}
 	}
 }
 </style>

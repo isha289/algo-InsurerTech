@@ -2,11 +2,6 @@
   <section id="approve-reject-funds">
     <div class="section-head">
       <h2>FAC Offer List</h2>
-      <router-link to="/facoffercreation">
-        <button class="btn btn-primary">
-          Add offer
-        </button>
-      </router-link>
     </div>
     <div class="InsurerOfferList">
       <table class="table table-striped table-bordered" style="overflow: scroll">
@@ -38,7 +33,7 @@
         </thead>
         <tbody>
           <tr v-if="offers == ''">
-            <td class="empty" colspan="12">You do not have any open FAC Orders.</td>
+            <td class="empty" colspan="12">You do not have any open FAC Offers.</td>
           </tr>
           <tr v-else v-for="(offer, index) in offers" :key="index">
             <td class="data">{{ offer.fac_offer_code }}</td>

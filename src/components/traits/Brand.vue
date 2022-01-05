@@ -2,10 +2,10 @@
 	<div class="brand" :class="brandClass">
 		<img src="../../../public/sft.png" alt="logo">
 		<div v-if="type === undefined">
-			<p class="marketplace">Marketplace</p>
-			InsurerTech
+			<!-- <p class="marketplace">Marketplace</p> -->
+			<p>Reinsurance</p>
+			<p>Platform</p>
 		</div>
-		<!-- <div v-show="type !== undefined" class="line"></div> -->
 		<h2 v-show="type !== undefined">{{ type }}</h2>
 	</div>
 </template>
@@ -25,12 +25,9 @@ export default {
 	justify-content: center;
 	align-items: center;
 
-	.line {
-		height: 100px;
-		width: 5px;
-		background-color: coral;
-		margin: 0 2rem;
-		border-radius: 5px;
+	p {
+		margin: 0;
+		line-height: 2rem;
 	}
 
 	img {
