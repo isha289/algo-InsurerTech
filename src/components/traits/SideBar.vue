@@ -19,7 +19,7 @@
 				{{ item.text }}	
 			</router-link>
 		</div>
-		<button class="btn tab"><i class="fas fa-sign-out-alt"></i>Sign out</button>
+		<button class="btn tab" @click="signOut"><i class="fas fa-sign-out-alt"></i>Sign out</button>
 	</div>
 </template>
 
