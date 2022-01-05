@@ -152,6 +152,6 @@ export default {
 <style scoped>
 .split {
 	align-items: center;
-	/* grid-template-columns: 18.8% 1% 18.8%; */
+	grid-template-columns: auto;
 }
 </style>

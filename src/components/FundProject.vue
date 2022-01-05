@@ -115,23 +115,6 @@ export default {
 table {
 	margin: 2rem 0;
 }
-td {
-	padding: 0 20px;
-}
-.data {
-	word-break: break-word;
-	text-align: left;
-	vertical-align: inherit;
-	padding: 0.5rem 0;
-}
-.heading {
-	text-align: left;
-	font-weight: 600;
-	font-size: 1.2rem;
-}
-.center {
-	text-align: center;
-}
 
 input[type=radio] {
 	width: 1rem;

@@ -99,7 +99,17 @@ export default {
     align-items: center;
     flex-direction: column;
     min-height: 100vh;
-	min-width: 45rem;
+	width: 45rem;
 	margin: auto;
+
+	input {
+		width: 100%;
+	}
+
+	.split {
+		grid-template-columns: auto;
+		justify-content: space-between;
+		margin-bottom: 0;
+	}
 }
 </style>

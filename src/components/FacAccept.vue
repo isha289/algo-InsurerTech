@@ -6,7 +6,7 @@
       <table class="table table-striped" style="overflow: scroll">
         <thead>
           <tr>
-			<td class="heading center">Insurer Address</td>
+            <td class="heading center">Insurer Address</td>
 
             <td class="heading center">FAC Offer Code</td>
 
@@ -36,7 +36,7 @@
           </tr>
           <!-- <tr> -->
           <tr v-else v-for="(offer, index) in offers" :key="index">
-			<td class="data center">{{ offer.insurer_address }}</td>
+            <td class="data center">{{ offer.insurer_address }}</td>
 
             <td class="data center">{{ offer.fac_offer_code }}</td>
 
@@ -52,7 +52,7 @@
 
             <td class="data center">{{ offer.fac_premium }}</td>
 
-            <td class="data center">{{offer.reinsurer_amount}}</td>
+            <td class="data center">{{ offer.reinsurer_amount }}</td>
 
             <!-- <td class="data center" v-if="offer.accept == 1">
             </td>
@@ -61,9 +61,7 @@
             <td class="data center">
               <label
                 v-if="offer.accept == 0"
-                @click="
-                  selectedOffer = offer;
-                "
+                @click="selectedOffer = offer"
                 for="accept-offer"
               >
                 <input type="radio" name="accept-offer" />
@@ -95,11 +93,8 @@
 
         <div v-else class="lds-ring">
           <div></div>
-
           <div></div>
-
           <div></div>
-
           <div></div>
         </div>
       </button>
@@ -129,20 +124,20 @@ export default {
         let offer = this.selectedOffer;
 
         let popupTitle =
-          // type == "approve" 
-           "FAC Accepted";
+          // type == "approve"
+          "FAC Accepted";
 
         let popupDesc =
           // type == "approve"
-            // ? "The investment amount has been returned back to the invester."
-             "You have accepted the FAC Offer.";
+          // ? "The investment amount has been returned back to the invester."
+          "You have accepted the FAC Offer.";
 
         let data = {
-          "Reinsurer_Address": this.$store.state.account,
+          Reinsurer_Address: this.$store.state.account,
 
-          "AppID": offer.fac_offer_code,
+          AppID: offer.fac_offer_code,
 
-          "Accept": 1
+          Accept: 1,
         };
 
         let post = {
@@ -162,7 +157,6 @@ export default {
         });
       } catch (err) {
         this.$emit("popup", "", "There was an error.");
-        
       }
 
       this.isLoading = true;
@@ -215,40 +209,11 @@ table {
   margin: 2rem 0;
 }
 
-td {
-  padding: 0 20px;
-}
-
-.data {
-  word-break: break-word;
-
-  text-align: left;
-
-  vertical-align: inherit;
-
-  padding: 0.5rem 0;
-}
-
-.heading {
-  text-align: left;
-
-  font-weight: 500;
-
-  font-size: 1.1rem;
-}
-
-.center {
-  text-align: center;
-}
-
 input[type="radio"] {
   width: 1rem;
-
   height: 1rem;
-
   vertical-align: -webkit-baseline-middle;
 }
-
 .empty {
   font-size: 1.4rem;
 }

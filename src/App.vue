@@ -1,5 +1,5 @@
 <template>
-	<div class="external">
+	<div class="external" :class="{darken: this.pClass != ''}">
 		<div ref="popup" class="popup" :class="pClass">
 			<div class="header" v-show="message != ''">
 				<i class="fas" :class="icon"></i>
@@ -16,7 +16,7 @@
 			leave-active-class="animated fadeOut"
 			mode="out-in">
 			<router-view @externalPopup="gotPopup" v-slot="{ Component }">
-				<component :class="{darken: this.pClass != ''}" ref="view" :is="Component" />
+				<component ref="view" :is="Component" />
 			</router-view>
 		</transition>
 	</div>
@@ -67,9 +67,8 @@ h2 {
 	margin: 0;
 }
 section {
-	padding: 1.3rem 3rem;
+	padding: 6.9rem 3rem 1.3rem 3rem;
 	margin-left: 16rem;
-	margin-top: 5.6rem;
 }
 form {
 	margin: 2rem 0;
@@ -136,6 +135,20 @@ textarea:focus {
 	} 
 }
 
+.data {
+	word-break: break-word;
+	text-align: left;
+	vertical-align: inherit;
+	padding: 0.5rem 0;
+}
+.heading {
+	text-align: left;
+	font-weight: 600;
+}
+.center {
+	text-align: center;
+}
+
 .form-brand {
 	margin: 0 !important;
 	padding: 1rem 4rem;
@@ -151,7 +164,7 @@ textarea:focus {
 	border: 5px solid navy;
 	border-top-color: transparent;
 	box-shadow: none;
-	padding: 1rem;
+	padding: 2rem 4rem;
 	position: relative;
 	top: -1rem;
 	border-radius: 0 0 2rem 2rem;
@@ -212,6 +225,7 @@ textarea:focus {
 	transform: translate(50%, -100%) scale(1);
 	opacity: 1;
 	z-index: 10;
+	pointer-events: all;
 }
 
 .main {
@@ -232,6 +246,7 @@ textarea:focus {
 .split {
 	display: grid;
 	grid-auto-flow: column;
+    grid-template-columns: 48.5% 48.5%;
 	grid-gap: 1rem;
 	margin-bottom: 2rem;
 
@@ -241,6 +256,19 @@ textarea:focus {
 
 	.with-label {
 		grid-template-columns: 100%;
+	}
+}
+
+.address {
+	width: 8rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-break: initial;
+	transition: all 750ms ease-in-out;
+
+	&:hover {
+		width: 20rem;
+		word-wrap: break-word;
 	}
 }
 
@@ -292,22 +320,22 @@ textarea:focus {
 // Scroll bar styling
 /* width */
 ::-webkit-scrollbar {
-	width: 10px;
+    width: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-	background: white;
+    background: transparent;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: rgba(0, 0, 128, 0.836);
-	border-radius: 10px;
+    background: #888;
+    border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	background: rgba(0, 0, 128, 0.5);
+    background: #555;
 }
 </style>

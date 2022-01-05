@@ -2,30 +2,9 @@
 	<div class="main">
 		<div class="navigation-bar">
 			<Brand></Brand>
-			<div class="nav-links">
-				<router-link to="/get-credits" class="tab">
-					<i class="fas fa-coins"></i>
-					Buy Tokens
-				</router-link>
-				<router-link to="/tokenredeem" class="tab">
-					<i class="fas fa-credit-card"></i>
-					Redeem Tokens
-				</router-link>
-				<router-link to="/insureroffer" class="tab">
-					<i class="fas fa-plus-circle"></i>
-					FAC Offer
-				</router-link>
-				<!-- <router-link to="/fund-project" class="tab">
-					<i class="fas fa-project-diagram"></i>
-					FAC Accept 
-				</router-link> -->
-				<router-link to="/facaceptlist" class="tab">		<!---review funds-->
-					<i class="fas fa-check-double"></i>
-					FAC Accept
-				</router-link>
-				<button class="btn tab" @click="signOut"><i class="fas fa-sign-out-alt"></i>Sign out</button>
-			</div>
+			<SideBar />
 		</div>
+		
 		<div ref="popup" class="popup" :class="pClass">
 			<div class="header" v-show="message != ''">
 				<i class="fas" :class="icon"></i>
@@ -54,17 +33,34 @@
 			</div>
 			<div class="balance">
 				<i class="fas fa-rupee-sign"></i>
-				{{ balance }}
+				<div v-if="!isLoading">
+					{{ balance }}
+				</div>
+				<div v-else class="lds-ring">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
 			</div>
 			<div class="balance">
 				<i class="fas fa-coins"></i>
-				{{ Token_Balance }}
+				<div v-if="!isLoading">
+					{{ Token_Balance }}
+				</div>
+				<div v-else class="lds-ring">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
 			</div>
 			<div class="account">
 				<i class="fas fa-wallet"></i>
 				<span>{{ account }}</span>
-			</div>	
+			</div>
 		</div>
+			
 		<transition
 			name="home-router-view-transition"
 			enter-active-class="animated fadeIn"
@@ -80,14 +76,17 @@
 <script>
 import { mapActions } from 'vuex'
 import Brand from '@/components/traits/Brand.vue'
+import SideBar from '@/components/traits/SideBar.vue'
 
 export default {
 	name: 'Main',
 	components: {
-		Brand
+		Brand,
+		SideBar
 	},
 	data() {
 		return {
+			isLoading: false,
 			message: '',
 			description: '',
 			icon: '',
@@ -96,25 +95,15 @@ export default {
 			Token_Balance: null,
 			account: this.$store.state.account,
 			balance: null,
-			name: this.$store.state.lastName + ' ' + this.$store.state.firstName 
+			name: this.$store.state.firstName + ' ' + this.$store.state.lastName 
 		}
 	},
 	methods: {
 		...mapActions([
 			'updateAccount'
 		]),
-		signOut() {
-			localStorage.removeItem('account')
-			localStorage.removeItem('firstName')
-			localStorage.removeItem('lastName')
-			this.$store.dispatch('updateAccount', {
-				account: '',
-				firstName: '',
-				lastName: ''
-			})
-			this.$router.push('/login')
-		},
-		gotPopup(message, description,data = {timeout : 6000}) {
+		gotPopup(message, description, data = {timeout: 6000}) {
+			console.log(data.timeout)
 			this.address = ''
 			this.message = message
 			this.description = description
@@ -122,10 +111,11 @@ export default {
 				this.icon = 'fa-check-circle'
 			}
 			this.pClass = 'pop'
+			this.isLoading = true
 			setTimeout(()=>{
 				this.getAccountBalance()
 				this.getBankBalance()
-			},data.timeout)
+			}, data.timeout)
 		},
 		async getAccountBalance() {
 			try {
@@ -148,6 +138,7 @@ export default {
 			} catch(err) {
 				console.log(err)
 			}
+			this.isLoading = false
 		},
 		async getBankBalance() {
 			try {
@@ -170,6 +161,7 @@ export default {
 			} catch(err) {
 				console.log(err)
 			}
+			this.isLoading = false
 		},
 	},
 	mounted() {
@@ -197,15 +189,44 @@ export default {
 	text-align: left;
 	font-size: 1.3rem;
 
+	.lds-ring {
+		bottom: 3px;
+	}
+
 	.balance {
+		display: flex;
+		align-items: center;
 		margin: 0 2rem;
 	}
 
 	.account {
-		word-break: break-all;
 		display: flex;
 		align-items: center;
 		font-size: 1.1rem;
+		width: 10rem;
+		transition: all 400ms ease-in-out;
+		
+		span {
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		&:hover {
+			width: 20rem;
+			span {
+				word-break: break-all;
+			}
+		}
+
+		@media screen and (min-width: 1570px) {
+			& {
+				width: auto;
+			}
+
+			&:hover {
+				width: max-content;
+			}
+		}
 	}
 
 	i {
@@ -223,34 +244,5 @@ export default {
 	color: white;
 	position: fixed;
 	z-index: 1;
-
-	.nav-links {
-		display: flex;
-		flex-direction: column;
-		align-items: baseline;
-
-		.fas {
-			margin-right: 5px;
-		}
-
-		.tab {
-			color: white;
-			padding: 10px 30px;
-			width: 100%;
-			text-align: left;
-			transition: all 200ms ease-in-out;
-
-			&:hover {
-				text-decoration: none;
-				background-color: #2c7e59
-			}
-		}
-
-		.router-link-active {
-			color: navy !important;
-			background-color: white;
-			pointer-events: none;
-		}
-	}
 }
 </style>

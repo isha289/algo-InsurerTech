@@ -40,7 +40,7 @@ export default {
 		return {
 			isLoading: false,
 			email: '',
-			password: ''
+			password: 'qwerty'
 		}
 	},
 	methods: {
@@ -66,8 +66,9 @@ export default {
 						if(data.status === false) {
 							this.$emit('externalPopup', '', 'Your email or password is incorrect.')
 						} else {
+							data.pa = this.email === this.$platformAdmin ? 'true' : 'false'
 							this.$store.dispatch('updateAccount', data)
-							this.$router.push('/insureroffer')
+							this.$router.push(data.pa === 'true' ? '/view-fac-offers' : '/insureroffer')
 						}
 					})
 			} catch(err) {
@@ -87,7 +88,17 @@ export default {
     align-items: center;
     flex-direction: column;
     min-height: 100vh;
-	min-width: 45rem;
+	width: 45rem;
 	margin: auto;
+
+	input {
+		width: 100%;
+	}
+
+	.split {
+		grid-template-columns: auto;
+		justify-content: space-between;
+		margin-bottom: 0;
+	}
 }
 </style>
