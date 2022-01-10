@@ -243,6 +243,7 @@ export default {
 	background-color: navy;
 	color: white;
 	position: fixed;
+	overflow: overlay;
 	z-index: 1;
 }
 </style>

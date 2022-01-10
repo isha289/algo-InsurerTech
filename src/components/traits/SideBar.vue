@@ -68,7 +68,7 @@ export default {
 					},
 					{
 						text: 'FAC Offer',
-						toggle: false,
+						toggle: true,
 						child: [
 							{
 								to: '/facoffercreation',
@@ -138,12 +138,20 @@ export default {
 		padding-left: 2rem;
 		margin: 0;
 		opacity: 0;
-		height: 0;
-		transition: all 200ms ease-in-out;
+		max-height: 0;
+		transition: all 250ms ease-in-out;
+
+		& a {
+			visibility: collapse;
+		}
 	}
 	.toggled {
 		opacity: 1;
-		height: 11rem;
+		max-height: 20rem;
+		& a {
+			visibility: visible;
+		}
+
 	}
 
 	.tab {
